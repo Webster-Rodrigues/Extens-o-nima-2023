@@ -57,7 +57,7 @@ mooca_df = combustiveis_df. loc[(combustiveis_df["Municipio"] == "SAO PAULO") &
 print(f'{mooca_df["Valor de Venda"].mean():.2f}')
 
 
-# Como mostrar média de valor de venda POR COMBUSTÍVEL do Brasil?
+# Como mostrar média de valor de venda POR COMBUSTÍVEL do Brasil
 
 
 
