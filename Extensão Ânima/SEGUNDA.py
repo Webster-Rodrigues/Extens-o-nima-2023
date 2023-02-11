@@ -69,5 +69,3 @@ print(f'{combustiveis_df.head().info()}')
 
 
 
-
-

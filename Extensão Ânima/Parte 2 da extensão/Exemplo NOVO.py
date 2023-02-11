@@ -125,6 +125,3 @@ while (num_linha <= MAX_ROW):
 wb.save(excel)
 
 
-
-
-
