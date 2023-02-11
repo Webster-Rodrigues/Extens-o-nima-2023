@@ -54,11 +54,17 @@ mooca_df = combustiveis_df. loc[(combustiveis_df["Municipio"] == "SAO PAULO") &
                                 (combustiveis_df["Bairro"] == "MOOCA") &
                                 ((combustiveis_df["Produto"] == "GASOLINA") |
                                 (combustiveis_df ["Produto"] == "GASOLINA ADITIVADA"))]
-print(f'{mooca_df["Valor de Venda"].mean():.2f}')
+#print(f'{mooca_df["Valor de Venda"].mean():.2f}')
 
 
 # Como mostrar média de valor de venda POR COMBUSTÍVEL do Brasil
+media_Combustivel_Brasil_df = especificas_df[["Produto", "Valor de Venda"]].groupby(by = "Produto").mean().round(2)
+print(f'{media_Combustivel_Brasil_df}')
 
+
+#Adicionar uma coluna de valor booleano no combustiveis_df chamada "Ativo" que, por padrão, vai ser True para TODAS as linhas
+combustiveis_df["Ativo"] = True
+print(f'{combustiveis_df.head().info()}')
 
 
 
