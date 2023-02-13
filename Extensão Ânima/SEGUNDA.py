@@ -7,21 +7,21 @@ import openpyxl
 combustiveis_df = pd.read_excel("NovaBase.xlsx")
 combustiveis_df.head()
 
-#print(combustiveis_df)
+print(combustiveis_df)
 
 #Mostrar o tipo de dado
-#print(combustiveis_df.info())
+print(combustiveis_df.info())
 
 #Visualizar estatísticas básicas
-#print(combustiveis_df.describe())
+print(combustiveis_df.describe())
 
 #Filtrar por coluna (cria uma lista e usa o nome da colunaex)
-#print(combustiveis_df["Revenda"])
+print(combustiveis_df["Revenda"])
 
 
 #Criar um novo dataframe apenas com as colunas desejadas
 especificas_df = combustiveis_df[["Revenda", "Municipio", "Produto", "Valor de Venda"]]
-#print(especificas_df)''
+print(especificas_df)
 
 '''Criei uma nova base de dados a partir de um dataframe, porque utilizei o Pycharm e não era possível a visualização 
 das 4 colunas escolhidas. Então para ter certeza que estava dando certo coloquei no excel e já está pronto
@@ -33,10 +33,11 @@ especificas_df.to_excel('especificas.xlsx', sheet_name = "Planilha com dados sel
 somente com combustível sendo GASOLINA. Com a utilização da ferramenta LOC[]'''
 
 gasolina_df = especificas_df.loc[especificas_df["Produto"] == 'GASOLINA']
-#print(gasolina_df)
+print(gasolina_df)
 #Mesmo caso que o anterior, poderia criar um arquivo em excel apenas disso se quisesse
-#print(gasolina_df.max()) serve para visualizar qual o maior preço vendido da gasolina e o município onde é vendido
-#a resposta é Município: XANXERE com o valor de  R$7.99
+print(gasolina_df.max())
+'''serve para visualizar qual o maior preço vendido da gasolina e o município onde é vendido
+#a resposta é Município: XANXERE com o valor de  R$7.99'''
 
 
 #DataFrame.loc[] com múltiplas condições para filtragem
@@ -45,7 +46,7 @@ ordenado do menor valor de venda para o maior'''
 
 etanol_SaoPaulo_df = especificas_df.loc[(especificas_df["Produto"] == "ETANOL") &
                                         (especificas_df["Municipio"] == "SAO PAULO")]
-#print(etanol_SaoPaulo_df.sort_values(by = "Valor de Venda"))
+print(etanol_SaoPaulo_df.sort_values(by = "Valor de Venda"))
 etanol_SaoPaulo_df.to_excel('etanol_SaoPaulo.xlsx', sheet_name = "ETANOL em São Paulo")
 #Achei interessante criar um base de dados de uma cidade interira, seria útil em caso de relatórios.
 
@@ -54,7 +55,7 @@ mooca_df = combustiveis_df. loc[(combustiveis_df["Municipio"] == "SAO PAULO") &
                                 (combustiveis_df["Bairro"] == "MOOCA") &
                                 ((combustiveis_df["Produto"] == "GASOLINA") |
                                 (combustiveis_df ["Produto"] == "GASOLINA ADITIVADA"))]
-#print(f'{mooca_df["Valor de Venda"].mean():.2f}')
+print(f'{mooca_df["Valor de Venda"].mean():.2f}')
 
 
 # Como mostrar média de valor de venda POR COMBUSTÍVEL do Brasil

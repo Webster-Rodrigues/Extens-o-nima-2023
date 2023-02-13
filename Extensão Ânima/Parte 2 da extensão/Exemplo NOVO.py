@@ -7,30 +7,30 @@ from openpyxl.styles import PatternFill, Font, Color, Alignment
 
 combustiveis_df = pd.read_excel("BaseDados_principal.xlsx")
 combustiveis_df.head()
-#print(combustiveis_df)
+print(combustiveis_df)
 
 combustiveis_df["Ativo"] = True
-#print(combustiveis_df)
+print(combustiveis_df)
 
 combustiveis_df["Obs"] = ["MELHOR CIDADE" if Municipio == 'SAO PAULO' else None for Municipio in combustiveis_df["Municipio"]]
-#print(combustiveis_df.loc[combustiveis_df['Municipio'].isin(['SAO PAULO','INDAIATUBA', 'CAMPINAS', 'SALTO']),
-#['Municipio', 'Obs']])
+print(combustiveis_df.loc[combustiveis_df['Municipio'].isin(['SAO PAULO','INDAIATUBA', 'CAMPINAS', 'SALTO']),
+['Municipio', 'Obs']])
 
 
 '''Preencher uma coluna 'Valor de Venda - Status' que verifica se o valor de venda for maior que 6,5$ 
 ele fala que tá Caro..caso contrário, está barato'''
 
 combustiveis_df["Status do Valor de Venda"] = np.where(combustiveis_df["Valor de Venda"] > 6.5, "Caro", "Barato")
-#print(combustiveis_df[["Revenda", "Valor de Venda", "Status do Valor de Venda"]])
+print(combustiveis_df[["Revenda", "Valor de Venda", "Status do Valor de Venda"]])
 
 
 num_habitantes_df = pd.read_csv("ibge_num_habitantes_estimado.csv", sep = ';')
-#print(num_habitantes_df)
+print(num_habitantes_df)
 
 # Calcular postos de gasolina por habitante temos na amostragem de combustiveis nov/2021
 num_habitantes_df = pd.read_csv("ibge_num_habitantes_estimado.csv", sep=";")
 num_habitantes_df.rename(columns={"Estado":"Estado - Sigla"}, inplace = True)
-#print(num_habitantes_df)
+print(num_habitantes_df)
 
 
 # Faz um MERGE dos dois dataframes
@@ -41,18 +41,18 @@ merge_df = combustiveis_df.merge(num_habitantes_df, how = "inner", on = colunas)
 
 #Destruir coluna completamente vazia (todas as linhas são nulas)
 merge_df.dropna(axis = 'columns', inplace = True)
-#print(merge_df.info())
+print(merge_df.info())
 
 colunas = ['Regiao - Sigla', 'Nome da Rua', 'Numero Rua',
             'Bairro', 'Cep', 'Produto', 'Data da Coleta', 'Valor de Venda',
             'Unidade de Medida', 'Bandeira', 'Ativo', 'Status do Valor de Venda']
 merge_df.drop(labels = colunas, axis = 1, inplace = True)
-#print(merge_df.info())
+print(merge_df.info())
 
 
 # Remover a linhas duplicadas
 merge_df.drop_duplicates(inplace = True)
-#print(merge_df.head(100))
+print(merge_df.head(100))
 
 #Agrupar e contar quantos postos tem na cidade..
 postos_por_municipio_df = merge_df.groupby(by = ['Estado - Sigla', 'Municipio', 'NumHabitantes2021']).count()
@@ -63,7 +63,7 @@ postos_por_municipio_df.rename(columns = {"Revenda": "NumPostos"}, inplace = Tru
 
 postos_por_municipio_df['NumHabitantesPorPosto'] = postos_por_municipio_df['NumHabitantes2021'] / postos_por_municipio_df['NumPostos']
 
-#print(postos_por_municipio_df)
+print(postos_por_municipio_df)
 
 
 #Área para teste de  GRÁFICOS
@@ -82,7 +82,7 @@ plt.axvline(combustiveis_df['Valor de Venda'].mean(), color = 'red', linestyle =
 
 #Visualizar o consumo médio
 consumo_medio = combustiveis_df["Valor de Venda"].groupby(by = combustiveis_df["Produto"]).mean().round(2)
-#print(consumo_medio)
+print(consumo_medio)
 
 
 #Área do Gráfico em polegadas
@@ -100,7 +100,7 @@ consumo_medio.plot(
 
 #Grade
 plt.grid()
-#plt.show()
+plt.show()
 
 excel = "por_litro.xlsx"
 consumo_medio.to_excel(excel, "Sumário")
